@@ -1,0 +1,125 @@
+ALGORITHME chiffre_romain
+//BUT
+//PRINCIPE
+//ENTREE
+//SORTIE
+
+TABLEAU
+	tTableau(11) de Car
+VAR
+	cMenu : car
+	nNbr, nLongueur,nCpt : entier
+	sNbr : chaine
+
+DEBUT
+	ECRIRE "Bonjour, bienvenue dans le convertisseur de nombres romains."
+	ECRIRE "Pour convertir nombre arabe en nombre romain entrez 'a', pour nombre romain en nombre arabe entrez 'b':"
+	LIRE cMenu
+
+	CAS (cMenu) PARMI
+		cas 'a':
+			ECRIRE "Entrez un entier entre 1 et 3999:"
+			LIRE nNbr
+			ECRIRE "Votre nombre arabe en nombre romain = "
+
+			TANTQUE (nNbr>0) FAIRE
+				SI (nNbr>1000) ALORS
+					ECRIRE "M"
+					nNbr <- nNbr-1000
+					SINON SI (nNbr>900) ALORS
+						ECRIRE "CM"
+						nNbr <- nNbr-900
+						SINON SI (nNbr>500) ALORS
+							ECRIRE "D"
+							nNbr <- nNbr-500
+							SINON SI (nNbr>400) ALORS
+								ECRIRE "CD"
+								nNbr <- nNbr-400
+								SINON SI (nNbr>100) ALORS
+									ECRIRE "C"
+									nNbr <- nNbr-100
+									SINON SI (nNbr>90) ALORS
+										ECRIRE "XC"
+										nNbr <- nNbr-90
+										SINON SI (nNbr>50) ALORS
+											ECRIRE "L"
+											nNbr <- nNbr-50
+											SINON SI (nNbr>40) ALORS
+												ECRIRE "XL"
+												nNbr <- nNbr-40
+												SINON SI (nNbr>10) ALORS
+													ECRIRE "X"
+													nNbr <- nNbr-10
+													SINON SI (nNbr>9) ALORS
+														ECRIRE "IX"
+														nNbr <- nNbr-9
+														SINON SI (nNbr>5) ALORS
+															ECRIRE "V"
+															nNbr <- nNbr-5
+															SINON SI (nNbr>4) ALORS
+																ECRIRE "IV"
+																nNbr <- nNbr-4
+																SINON SI (nNbr>1) ALORS
+																	ECRIRE "I"
+																	nNbr <- nNbr-1
+																FINSI
+															FINSI
+														FINSI
+													FINSI
+												FINSI
+											FINSI
+										FINSI
+									FINSI
+								FINSI
+							FINSI
+						FINSI
+					FINSI
+				FINSI
+			FINTANTQUE
+
+
+		cas 'b':
+			ECRIRE "Entrez un nombre romain inferieur a 3999:
+			LIRE sNbr
+			nLongueur <- LONGUEUR(sNbr)
+
+			POUR nCpt ALLANT DE 0 A nLongueur FAIRE
+			nCpt <- nCpt+1
+				SI sNbr(nCpt) = 'M' ALORS
+					tTableau(nCpt) <- 1000
+					SINON SI sNbr(nCpt) = 'D' ALORS
+						tTableau(nCpt) <- 500
+						SINON SI sNbr(nCpt) = 'C' ALORS
+							tTableau(nCpt) <- 100
+							SINON SI sNbr(nCpt) = 'L' ALORS
+								tTableau(nCpt) <- 50
+								SINON SI sNbr(nCpt) = 'X' ALORS
+									tTableau(nCpt) <- 10
+									SINON SI sNbr(nCpt) = 'V' ALORS
+										tTableau(nCpt) <- 5
+										SINON SI sNbr(nCpt) = 'I' ALORS
+											tTableau(nCpt) <- 1
+											SINON
+												ECRIRE "Caractere invalide, rentrez caractere romain (I,V,X,L,C,D,M)"
+											FINSI
+										FINSI
+									FINSI
+								FINSI
+							FINSI
+						FINSI
+					FINSI
+				FINSI
+			FINPOUR
+			nNbr <- tTableau(nLongueur-1)
+			POUR nCpt ALLANT DE nLongueur-1 A 0 FAIRE
+			nCpt <- nCpt-1
+				SI (tTableau(nCpt)>tTableau(nCpt-1)) FAIRE
+					nNbr <- nNbr-tTableau(nCpt-1)
+					SINON SI tTableau(nCpt)=tTableau(nCpt-1) OU tTableau(nCpt)<tTableau(nCpt-1)FAIRE
+						nNbr <- nNbr+tTableau(nCpt-1)
+					FINSI
+				FINSI
+			FINPOUR
+			ECRIRE "Votre nombre romain en nombre arabe = "	nNbr
+	FINCASPARMI
+FIN
